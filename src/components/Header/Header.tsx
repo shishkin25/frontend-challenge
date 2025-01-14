@@ -16,19 +16,21 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <nav>
-        <ul className={styles.itemContainer}>
-          {NavItems.map((item) => (
-            <li
-              className={activeNavItem === item ? activeClasses : styles.item}
-              onClick={() => makeItemActive(item)}
-              key={item}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="container">
+        <nav>
+          <ul className={styles.itemContainer}>
+            {NavItems.map((item) => (
+              <li
+                className={activeNavItem === item ? activeClasses : styles.item}
+                onClick={() => makeItemActive(item)}
+                key={item}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 };

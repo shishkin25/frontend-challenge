@@ -1,8 +1,13 @@
 import './App.css';
-import { Header } from './components';
+import { Header, MainContent } from './components';
 
 function App() {
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <MainContent />
+    </>
+  );
 }
 
 export default App;

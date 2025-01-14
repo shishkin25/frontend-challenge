@@ -1,0 +1,43 @@
+@use '@/styles/variables' as vars;
+
+.heartWrapper {
+  position: relative;
+  .icon {
+    position: absolute;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+
+    &.onlyFavorite {
+      color: vars.$favorite-hover;
+      opacity: 1;
+
+      &.pressed {
+        color: vars.$favorite-clicked;
+      }
+    }
+
+    &.noFavoriteBorder {
+      color: vars.$favorite-hover;
+      opacity: 0;
+    }
+
+    &.favorite {
+      color: vars.$favorite-hover;
+      opacity: 0;
+
+      &.pressed {
+        color: vars.$favorite-clicked;
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.favoriteBorder {
+      color: vars.$favorite-hover;
+      &:hover {
+        opacity: 0;
+      }
+    }
+  }
+}
