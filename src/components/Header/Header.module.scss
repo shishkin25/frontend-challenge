@@ -1,0 +1,21 @@
+@use '@/styles/variables' as vars;
+
+.header {
+  background-color: vars.$header-primary-bg;
+  padding: 0 62px;
+
+  .itemContainer {
+    list-style-type: none;
+    display: flex;
+    .item {
+      padding: 23px 20px;
+      color: vars.$text-color;
+      opacity: 0.7;
+      cursor: pointer;
+      &.active {
+        opacity: 1;
+        background-color: vars.$header-active-item-bg;
+      }
+    }
+  }
+}
