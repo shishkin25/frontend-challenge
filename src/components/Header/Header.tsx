@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './Header.module.scss';
+import { NavItemsType } from '@/types';
 
-type NavItemsType = 'Все котики' | 'Любимые котики';
 const NavItems: NavItemsType[] = ['Все котики', 'Любимые котики'];
 
 const Header = () => {

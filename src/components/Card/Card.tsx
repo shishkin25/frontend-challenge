@@ -1,14 +1,18 @@
 import styles from './Card.module.scss';
-import catImg from '@/assets/images/cat.jpg';
 import { FavoriteComponent } from '@/components';
 
-const Card = () => {
+interface CardProps {
+  imgSrc: string;
+  isFavorite: boolean;
+}
+
+const Card: React.FC<CardProps> = ({ imgSrc, isFavorite }) => {
   return (
     <div className={styles.cardContainer}>
-      <img className={styles.img} src={catImg} alt="кошечка" />
+      <img className={styles.img} src={imgSrc} alt="Фото милого котенка" />
 
       <div className={styles.favoriteWrapper}>
-        <FavoriteComponent isFavorite={false} />
+        <FavoriteComponent isFavorite={isFavorite} />
       </div>
     </div>
   );
