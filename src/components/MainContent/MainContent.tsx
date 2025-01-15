@@ -6,6 +6,11 @@ const MainContent = () => {
     <div className="container">
       <div className={styles.mainContent}>
         <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
     </div>
   );
