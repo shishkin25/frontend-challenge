@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import styles from './Header.module.scss';
 import { NavItemsType } from '@/types';
 
 const NavItems: NavItemsType[] = ['Все котики', 'Любимые котики'];
 
-const Header = () => {
-  const [activeNavItem, setActiveNavItem] =
-    useState<NavItemsType>('Все котики');
+interface HeaderProps {
+  activeNavItem: NavItemsType;
+  makeItemActive: (item: NavItemsType) => void;
+}
 
+const Header: React.FC<HeaderProps> = ({ activeNavItem, makeItemActive }) => {
   const activeClasses = `${styles.item} ${styles.active}`;
-
-  const makeItemActive = (item: NavItemsType) => {
-    setActiveNavItem(item);
-  };
 
   return (
     <header className={styles.header}>

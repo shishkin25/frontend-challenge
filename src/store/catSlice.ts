@@ -5,12 +5,14 @@ import { fetchCats } from './catsThunks';
 
 interface CatState {
   cats: Cat[];
+  onlyFavoriteCats: Cat[];
   isLoading: boolean;
   error: string;
 }
 
 const initialState: CatState = {
   cats: [],
+  onlyFavoriteCats: [],
   isLoading: false,
   error: '',
 };
@@ -18,7 +20,63 @@ const initialState: CatState = {
 const catSlice = createSlice({
   name: 'cats',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleIsFavorite: (state, action: PayloadAction<Cat['id']>) => {
+      const choosedCat = state.cats.find((cat) => cat.id === action.payload);
+
+      if (choosedCat) {
+        choosedCat.isFavorite = !choosedCat.isFavorite;
+      }
+    },
+
+    changeOnlyFavoriteArray: (state, action: PayloadAction<Cat['id']>) => {
+      const choosedCat = state.cats.find((cat) => cat.id === action.payload);
+
+      if (choosedCat) {
+        const IsChoosedCatInOnlyFavoriteCats = state.onlyFavoriteCats.find(
+          (cat) => cat.id === choosedCat.id
+        );
+
+        if (IsChoosedCatInOnlyFavoriteCats) {
+          const storedCats = localStorage.getItem('onlyFavoriteCats');
+          if (storedCats) {
+            localStorage.setItem(
+              'onlyFavoriteCats',
+              JSON.stringify(
+                state.onlyFavoriteCats.filter((cat) => cat.id !== choosedCat.id)
+              )
+            );
+          }
+
+          return {
+            ...state,
+            onlyFavoriteCats: state.onlyFavoriteCats.filter(
+              (cat) => cat.id !== choosedCat.id
+            ),
+          };
+        } else {
+          state.onlyFavoriteCats.push(choosedCat);
+        }
+      } else {
+        const IsChoosedCatInOnlyFavoriteCats = state.onlyFavoriteCats.find(
+          (cat) => cat.id === action.payload
+        );
+
+        if (IsChoosedCatInOnlyFavoriteCats) {
+          return {
+            ...state,
+            onlyFavoriteCats: state.onlyFavoriteCats.filter(
+              (cat) => cat.id !== action.payload
+            ),
+          };
+        }
+      }
+    },
+
+    setOnlyFavoriteCats: (state, action: PayloadAction<Cat[]>) => {
+      state.onlyFavoriteCats = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCats.pending, (state) => {
@@ -40,4 +98,9 @@ const catSlice = createSlice({
   },
 });
 
+export const {
+  toggleIsFavorite,
+  changeOnlyFavoriteArray,
+  setOnlyFavoriteCats,
+} = catSlice.actions;
 export default catSlice.reducer;
