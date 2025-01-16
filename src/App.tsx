@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css';
 import { Header, AllCats, FavoriteCats } from './components';
 import { NavItemsType } from './types';
 

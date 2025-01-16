@@ -10,6 +10,11 @@ export interface Cat {
   categories?: { id: number; name: string }[];
 }
 
+export interface CatsData {
+  cats: Cat[];
+  allCatsCount: string | null;
+}
+
 export type ApiConfig = {
   baseUrl: string;
   apiKey: string;
@@ -20,3 +25,8 @@ export interface FetchError {
   code?: number;
   details?: string;
 }
+
+export type Params = {
+  limit: number;
+  page: number;
+};

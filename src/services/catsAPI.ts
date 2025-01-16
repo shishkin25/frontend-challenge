@@ -1,16 +1,17 @@
-import { Cat } from '@/types';
+import { Params } from '@/types';
 import { API_CONFIG } from './apiConfig';
 
-export const fetchCatsData = async (limit: number = 15) => {
+export const fetchCatsData = async (
+  limit: Params['limit'],
+  page: Params['page']
+) => {
   const response = await fetch(
-    `${API_CONFIG.baseUrl}?api_key=${API_CONFIG.apiKey}&limit=${limit}`
+    `${API_CONFIG.baseUrl}?api_key=${API_CONFIG.apiKey}&limit=${limit}&page=${page}`
   );
 
   if (!response.ok) {
     throw new Error('Не удалось получить котиков:(');
   }
 
-  const data: Omit<Cat, 'isFavorite'>[] = await response.json();
-
-  return data;
+  return response;
 };

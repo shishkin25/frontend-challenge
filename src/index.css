@@ -13,14 +13,20 @@ body {
   margin: 0 auto;
 }
 
-.gridLayout {
+.grid-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, 224px);
   grid-auto-rows: 225px;
   gap: 48px;
 }
 
-.infoTitle {
-  font-weight: 600;
+.el-for-infinite-scroll {
+  height: 15px;
+  opacity: 0;
+}
+
+.info-title {
+  font-weight: 400;
   text-align: center;
+  margin-top: 30px;
 }

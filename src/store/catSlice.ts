@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Cat } from '@/types';
+import { Cat, CatsData } from '@/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { fetchCats } from './catsThunks';
 
@@ -8,6 +8,7 @@ interface CatState {
   onlyFavoriteCats: Cat[];
   isLoading: boolean;
   error: string;
+  allCatsCount: string | null;
 }
 
 const initialState: CatState = {
@@ -15,6 +16,7 @@ const initialState: CatState = {
   onlyFavoriteCats: [],
   isLoading: false,
   error: '',
+  allCatsCount: '0',
 };
 
 const catSlice = createSlice({
@@ -31,12 +33,10 @@ const catSlice = createSlice({
 
     changeOnlyFavoriteArray: (state, action: PayloadAction<Cat['id']>) => {
       const choosedCat = state.cats.find((cat) => cat.id === action.payload);
-
       if (choosedCat) {
         const IsChoosedCatInOnlyFavoriteCats = state.onlyFavoriteCats.find(
           (cat) => cat.id === choosedCat.id
         );
-
         if (IsChoosedCatInOnlyFavoriteCats) {
           const storedCats = localStorage.getItem('onlyFavoriteCats');
           if (storedCats) {
@@ -81,13 +81,16 @@ const catSlice = createSlice({
     builder
       .addCase(fetchCats.pending, (state) => {
         state.isLoading = true;
-        state.cats = [];
         state.error = '';
       })
-      .addCase(fetchCats.fulfilled, (state, action: PayloadAction<Cat[]>) => {
-        state.isLoading = false;
-        state.cats = action.payload;
-      })
+      .addCase(
+        fetchCats.fulfilled,
+        (state, action: PayloadAction<CatsData>) => {
+          state.isLoading = false;
+          state.cats = [...state.cats, ...action.payload.cats];
+          state.allCatsCount = action.payload.allCatsCount;
+        }
+      )
       .addCase(fetchCats.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload

@@ -34,9 +34,9 @@ const FavoriteCats = () => {
     <div className="container">
       <div className={styles.favoriteCats}>
         {!onlyFavoriteCats.length ? (
-          <h2 className="infoTitle">Нет любимых котиков:(</h2>
+          <h2 className="info-title">Нет любимых котиков:(</h2>
         ) : (
-          <div className="gridLayout">
+          <div className="grid-layout">
             {onlyFavoriteCats.map((cat) => (
               <Card
                 imgSrc={cat.url}
