@@ -30,3 +30,9 @@ body {
   text-align: center;
   margin-top: 30px;
 }
+
+@media (max-width: 480px) {
+  .grid-layout {
+    justify-content: center;
+  }
+}
